@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 export interface IResponse {
-  success: string;
+  success: boolean;
   message: string;
 }
 
@@ -9,9 +9,17 @@ export interface IUserSignin {
   lastName: string;
   dob: Date;
   gender: string;
-  token: string,
+  token: string;
 }
 
 export interface IUserInfo extends IResponse {
   data: IUserSignin;
+}
+
+export interface ErrorResponse extends IResponse {
+  data: {};
+}
+
+export interface IErrorResponseArray extends IResponse {
+  data: []
 }

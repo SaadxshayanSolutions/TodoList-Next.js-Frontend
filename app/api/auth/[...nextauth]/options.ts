@@ -50,9 +50,6 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    // async signIn() {
-    //   redirect("/");
-    // },
     async jwt({ token, user, account, profile }) {
       if (user) {
         token.user = user;

@@ -19,9 +19,9 @@ const TextInput : FC<ITextInputProps> = ({
 }) => {
 
   return (
-    <div className='space-y-1'>
+    <div className='space-y-1 flex flex-col'>
         <label> {label}</label>
-        <input {...field} {...props} className='w-full p-2'/>
+        <input {...field} {...props} className='p-2'/>
 
       {
         touched[field.name] &&

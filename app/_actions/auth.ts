@@ -7,18 +7,28 @@ const URL: string = "http://localhost:5000";
 
 interface Ioptions {
   method: string;
-  heders: { content_Type: string };
-  body: any;
+  headers: { "Content-Type": string; Authorization: string };
+  body?: any;
 }
 
-export const optionGenerator = async (method: string, data: any) => {
-  return {
+export const optionGenerator = async (
+  method: string,
+  data: any,
+  token: string | undefined = undefined
+) => {
+  const options: Ioptions = {
     method,
     headers: {
       "Content-Type": "application/json",
+      Authorization: `{Bearer ${token} }`,
     },
-    body: JSON.stringify(data),
   };
+
+  if (Object.keys(data).length > 0) {
+    options.body = JSON.stringify(data);
+  }
+
+  return options;
 };
 
 export const signup = async (data: Yup.InferType<typeof SignUpschema>) => {

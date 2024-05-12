@@ -2,8 +2,6 @@
 
 import { addTodoSchema, signinSchema } from "@/app/schemas/registrationSchema";
 import { FormikHelpers, Formik, Form, Field } from "formik";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import React, { useTransition } from "react";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
@@ -11,10 +9,11 @@ import TextInput from "../../inputs/TextInput";
 import DateInput from "../../inputs/DateInput";
 import TextAreaInput from "../../inputs/TextAreaInput";
 import { addTodo } from "@/app/_actions/Todos";
+import { Button } from "@/components/ui/button";
 
 const initialValues = {
-  name: "test",
-  desc: "Testings",
+  name: "",
+  desc: "",
   dueDate: new Date(),
 };
 
@@ -51,40 +50,53 @@ const AddTodoForm = () => {
   };
 
   return (
-    <div>
+    <div className="bg-gray-700 p-2">
       <Formik
       initialValues={initialValues}
       validationSchema={addTodoSchema}
       onSubmit={handleAddTodo}
     >
-      <Form className="space-y-2">
-        <Field
-          component={TextInput}
-          name="name"
-          label="Name"
-          placeholder="Name"
-        />
-        <Field
-          component={DateInput}
-          name="dueDate"
-          label="Due Date"
-          placeholder="Due Date"
-        />
-        <Field
-          component={TextAreaInput}
-          name="desc"
-          label="Description"
-          placeholder="Description"
-          type = "text-area"
-          rows = {4}
-        />
-        <button
-          className="w-full bg-green-500 disabled:bg-green-600 p-2 mt-4"
-          type="submit"
-          disabled={ispending}
-        >
-          {ispending ? "Singning in..." : "Sign in"}
-        </button>
+      <Form>
+        <div className="flex space-x-4 items-center">
+
+          <div className="w-3/12">
+            <Field
+              component={TextInput}
+              name="name"
+              label="Name"
+              placeholder="Name"
+            />
+          </div>
+
+          <div className="w-3/12">
+            <Field
+              component={DateInput}
+              name="dueDate"
+              label="Due Date"
+              placeholder="Due Date"
+            />
+          </div>
+
+          <div className="w-4/12">
+            <Field
+              component={TextInput}
+              name="desc"
+              label="Description"
+              placeholder="Description"
+            />
+          </div>
+
+          <div className="w-2/12 flex justify-center">
+            <Button
+              className="bg-green-500 disabled:bg-orange-300 p-2 mt-4 w-2/3 rounded-md mx-auto hover:bg-green-600"
+              type="submit"
+              disabled={ispending}
+            >
+              {ispending ? "Adding Todo..." : "Add New Todo"}
+            </Button>
+
+          </div>
+        </div>
       </Form>
     </Formik>
     </div>

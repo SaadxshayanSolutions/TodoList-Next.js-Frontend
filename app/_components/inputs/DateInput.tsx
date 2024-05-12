@@ -1,8 +1,11 @@
 "use client"
 import React, { FC, useState } from 'react'
 import { FieldProps } from 'formik';
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
+import DateTimePicker from 'react-datetime-picker';
+
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
 
 interface IDateInputProps extends FieldProps {
     placeholder? : string,
@@ -23,10 +26,10 @@ const DateInput : FC<IDateInputProps> = ({
     <div className='space-y-1'>
         <label> {label}</label>
 
-        <DatePicker 
+        <DateTimePicker
         {...field} 
-        selected = {field.value} 
-        maxDate = {new Date()}
+        value = {field.value} 
+        minDate = {new Date()}
         onChange={(date : Date | null) => setFieldValue(field.name,date)} 
         className="w-full p-2"
         />
