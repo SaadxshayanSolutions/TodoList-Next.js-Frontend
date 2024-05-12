@@ -12,7 +12,7 @@ import {
 } from "../interfaces/user";
 import { IAllTodos, ITodoCard, ITodoResponse } from "../interfaces/todos";
 
-const URL: string = "http://localhost:5000/todos";
+const URL = `${process.env.SERVER_URL}/todos`;
 
 export const addTodo = async (data: Yup.InferType<typeof addTodoSchema>) => {
   try {

@@ -21,7 +21,7 @@ const ToggleStatus = ({todo} : {todo: ITodoCard}) => {
                 toast.success("Status updated Successfully")
                 
             } catch (error : any) {
-                
+
                 toast.error(error.message)
             }
         })
