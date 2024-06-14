@@ -9,12 +9,15 @@ interface Ioptions {
   method: string;
   headers: { "Content-Type": string; Authorization: string };
   body?: any;
+  cache?: any;
+  next?: any;
 }
 
 export const optionGenerator = async (
   method: string,
   data: any,
-  token: string | undefined = undefined
+  token: string | undefined = undefined,
+  cache: any = undefined
 ) => {
   const options: Ioptions = {
     method,
@@ -22,6 +25,8 @@ export const optionGenerator = async (
       "Content-Type": "application/json",
       Authorization: `{Bearer ${token} }`,
     },
+    next: { tags: ["todos"] },
+    // next: { revalidate: 1 },
   };
 
   if (Object.keys(data).length > 0) {

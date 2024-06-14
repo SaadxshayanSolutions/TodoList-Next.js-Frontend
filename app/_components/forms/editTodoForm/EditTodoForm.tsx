@@ -11,6 +11,7 @@ import TextAreaInput from "../../inputs/TextAreaInput";
 import { addTodo, editTodo } from "@/app/_actions/Todos";
 import { ITodoCard } from "@/app/interfaces/todos";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 
 
@@ -24,6 +25,8 @@ const EditTodoForm = (
   }) => {
   const [ispending, startTransition] = useTransition();
 
+  const router = useRouter()
+
   const initialValues = {
     name: todo.name,
     desc: todo.desc,
@@ -34,7 +37,9 @@ const EditTodoForm = (
     values: Yup.InferType<typeof addTodoSchema>,
   ) => {
 
-    startTransition(async() => {
+    try {
+
+      startTransition(async() => {
         const response =  await editTodo({...todo,name:values.name,desc:values.desc,dueDate:values.dueDate},todo._id)
 
         if(!response.success) {
@@ -44,9 +49,9 @@ const EditTodoForm = (
         handleShowForm()
         
         toast.success("Todo Edited succesfully")
-     })
 
-    try {
+        router.refresh()
+     })
         
     } catch (error:any) {
         toast.error(error.message)

@@ -10,6 +10,8 @@ import DateInput from "../../inputs/DateInput";
 import TextAreaInput from "../../inputs/TextAreaInput";
 import { addTodo } from "@/app/_actions/Todos";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { revalidateTag } from "next/cache";
 
 const initialValues = {
   name: "",
@@ -20,6 +22,8 @@ const initialValues = {
 
 const AddTodoForm = () => {
   const [ispending, startTransition] = useTransition();
+
+  const router = useRouter()
 
   const handleAddTodo = async (
     values: Yup.InferType<typeof addTodoSchema>,
@@ -44,7 +48,7 @@ const AddTodoForm = () => {
 
       }
 
-    //   router.refresh()
+      router.refresh()
 
     });
   };

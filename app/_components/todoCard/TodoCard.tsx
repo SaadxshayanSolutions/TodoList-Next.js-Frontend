@@ -11,9 +11,9 @@ const TodoCard = ({todo} : {todo: ITodoCard}) => {
 
   const formattedDate = moment.utc(todo.dueDate).local().format("dddd, MMMM D, YYYY h:mm A");
 
-  
+  const isCompleted = status
   return (
-    <div className="flex justify-between items-center space-x-2 bg-slate-200"> 
+    <div className= {`flex justify-between items-center space-x-2 ${isCompleted ? "bg-green-600" : "bg-orange-600"}`}> 
         <div>
           <ToggleStatus todo = {todo}/>
         </div>

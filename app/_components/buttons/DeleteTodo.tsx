@@ -1,6 +1,8 @@
 "use client"
 import { deleteTodo } from '@/app/_actions/Todos'
 import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
+import { Router } from 'next/router'
 import React, { useTransition } from 'react'
 import toast from 'react-hot-toast'
 
@@ -10,20 +12,25 @@ const DeleteTodo = ({id} : {id:string}) => {
 
     const [isPending,startTransition] = useTransition()
 
+    const router = useRouter()
+
     const handleDeleteTodo = () => {
 
-        startTransition(async() => {
-            const response =  await deleteTodo(id)
- 
-            if(!response.success) {
-                 toast.error(response.message)
-                 return;
-            }
-            
-            toast.success("Todo Delted succesfully")
-         })
-
         try {
+
+            startTransition(async() => {
+                const response =  await deleteTodo(id)
+     
+                if(!response.success) {
+                     toast.error(response.message)
+                     return;
+                }
+                
+                toast.success("Todo Delted succesfully")
+
+                router.refresh()
+                
+             })
             
         } catch (error:any) {
             toast.error(error.message)
@@ -32,7 +39,7 @@ const DeleteTodo = ({id} : {id:string}) => {
     }
   return (
 
-    <Button onClick={handleDeleteTodo} variant="destructive">
+    <Button onClick={handleDeleteTodo} variant="destructive" disabled = {isPending}>
         {
             isPending ? "Deleting..." : "Delete"
         }

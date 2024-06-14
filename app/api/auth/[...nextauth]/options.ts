@@ -6,6 +6,7 @@ import { generateResponse } from "@/app/_util/utilityFunctions";
 import { IUserInfo } from "@/app/interfaces/user";
 import async from "../../../page";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export const options: NextAuthOptions = {
   providers: [
